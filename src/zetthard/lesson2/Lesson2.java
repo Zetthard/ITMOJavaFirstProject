@@ -6,31 +6,74 @@ public class Lesson2 {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter your name: ");
-        String name = sc.nextLine();
-
-        switch (name) {
-            case "Semen":
-                System.out.println("Hi, " + name);
-                break;
-            case "Anna":
-                System.out.println("Hello, " + name);
-                break;
-            default:
-                System.out.println("Yo, " + name);
-        }
-        System.out.println(countApples(15, 4));
-
-        String str2 = "java";
-        String str1 = new String("Java!");
-        String str3 = "java";
-        str2 = "hoho";
-
-        System.out.println(str3);
+        //printOdd();
+        //fizzBuzzOption();
+        //System.out.println(checkSum());
+        //System.out.println(checkOrderAsc());
     }
 
-    public static int countApples(int weight, int age) {
-        return weight/2 + age;
+    //2.1
+    public static void printOdd() {
+        for (int i = 0; i < 100; i++) {
+            if(i % 2 == 1) {
+                System.out.println(i);
+            }
+        }
+    }
+
+    //2.2
+    public static void fizzBuzzOption() {
+
+        String three = "Делятся на три: ";
+        String five = "Делятся на пять: ";
+        String threeAndFive = "Делятся и на три и на пять: ";
+
+        for (int i = 1; i <= 100; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                threeAndFive += i + ", ";
+            } else if (i % 3 == 0) {
+                three += i + ", ";
+            } else if (i % 5 == 0) {
+                five += i + ", ";
+            }
+        }
+
+        System.out.println(three);
+        System.out.println(five);
+        System.out.println(threeAndFive);
+    }
+
+    //2.3
+    public static boolean checkSum() {
+
+        int num1, num2, num3;
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Введите первое целое число: ");
+        num1 = sc.nextInt();
+        System.out.println("Введите второе целое число: ");
+        num2 = sc.nextInt();
+        System.out.println("Введите третье целое число: ");
+        num3 = sc.nextInt();
+
+        return num1 + num2 == num3;
+    }
+
+    //2.4
+    public static boolean checkOrderAsc() {
+
+        int num1, num2, num3;
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Введите первое целое число: ");
+        num1 = sc.nextInt();
+        System.out.println("Введите второе целое число: ");
+        num2 = sc.nextInt();
+        System.out.println("Введите третье целое число: ");
+        num3 = sc.nextInt();
+
+        return num3 > num2 && num2 > num1;
     }
 }
