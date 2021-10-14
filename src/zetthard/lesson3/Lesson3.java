@@ -51,12 +51,14 @@ public class Lesson3 {
 
         //3.6 test
         /*int[] arrayToSort = new int[20];
+        int[] arrayToSort2 = { 2, 4, 15, 3, 64, 34, 8, 17, 27 };
         Random rnd = new Random();
         for (int i = 0; i < arrayToSort.length; i++) {
             arrayToSort[i] = rnd.nextInt(100);
         }
-        myMergeSort(arrayToSort);
-        System.out.println(Arrays.toString(arrayToSort));*/
+        System.out.println(Arrays.toString(arrayToSort));
+        int[] sortedArray = myMergeSort(arrayToSort);
+        System.out.println(Arrays.toString(sortedArray));*/
 
     }
 
@@ -171,12 +173,11 @@ public class Lesson3 {
         if (arr.length < 2) {
             return arr;
         }
-        int lSize = arr.length / 2;
-        int rSize = arr.length - lSize;
 
         //split original array in two and initialize both by copying original elements
-        int[] leftArr = Arrays.copyOfRange(arr, 0, lSize - 1);
-        int[] rightArr = Arrays.copyOfRange(arr, lSize, arr.length - 1);
+        int lSize = arr.length / 2;
+        int[] leftArr = Arrays.copyOfRange(arr, 0, lSize);
+        int[] rightArr = Arrays.copyOfRange(arr, lSize, arr.length);
 
         //recursive call until array size is >= 2
         myMergeSort(leftArr);
@@ -190,7 +191,7 @@ public class Lesson3 {
         //for every element in both smaller arrays take smallest and put it into temporary array
         while (l < leftArr.length && r < rightArr.length) {
             if (leftArr[l] <= rightArr[r]) {
-                sumArr[l] = leftArr[l];
+                sumArr[s] = leftArr[l];
                 l++;
             } else {
                 sumArr[s] = rightArr[r];
@@ -205,14 +206,14 @@ public class Lesson3 {
             l++;
             s++;
         }
-        while (l < rightArr.length) {
+        while (r < rightArr.length) {
             sumArr[s] = rightArr[r]; //case with larger right array
             r++;
             s++;
         }
 
         //reinitializing initial array
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < sumArr.length; i++) {
             arr[i] = sumArr[i];
         }
         return arr;
