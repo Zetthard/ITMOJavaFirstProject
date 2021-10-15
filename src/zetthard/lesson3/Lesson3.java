@@ -17,12 +17,12 @@ public class Lesson3 {
         int[] array5 = { 40, 1, 2, 3, 4, 5, 6 };
         int[] array6 = { 1, 2, 3, 70, 4, 5, 6 };
 
-        System.out.println(sumArrayElements(array1));
-        System.out.println(sumArrayElements(array2));
-        System.out.println(sumArrayElements(array3));
-        System.out.println(sumArrayElements(array4));
-        System.out.println(sumArrayElements(array5));
-        System.out.println(sumArrayElements(array6));*/
+        System.out.println(isSorted(array1));
+        System.out.println(isSorted(array2));
+        System.out.println(isSorted(array3));
+        System.out.println(isSorted(array4));
+        System.out.println(isSorted(array5));
+        System.out.println(isSorted(array6));*/
 
         //3.2 test
         //printArray();
@@ -63,7 +63,7 @@ public class Lesson3 {
     }
 
     //3.1
-    public static String sumArrayElements (int[] ints){
+    public static String isSorted (int[] ints){
 
         String ans = "";
 
