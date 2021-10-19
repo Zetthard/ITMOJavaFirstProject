@@ -56,9 +56,24 @@ public class Lesson3 {
         for (int i = 0; i < arrayToSort.length; i++) {
             arrayToSort[i] = rnd.nextInt(100);
         }
+        System.out.println("Array to sort #1: ");
         System.out.println(Arrays.toString(arrayToSort));
         int[] sortedArray = myMergeSort(arrayToSort);
-        System.out.println(Arrays.toString(sortedArray));*/
+        System.out.println("Result: ");
+        System.out.println(Arrays.toString(sortedArray));
+        System.out.println();
+        System.out.println("Array to sort #1: ");
+        System.out.println(Arrays.toString(arrayToSort2));
+        int[] sortedArray2 = myMergeSort(arrayToSort2);
+        System.out.println("Result: ");
+        System.out.println(Arrays.toString(sortedArray2));*/
+
+        //3.7 test
+        /*int[] freqArray = { 1, 2, 3, 4, 1, 5, 3, 4, 1, 5, 1, 5, 3 };
+        int[] freqArray2 = { 0, 2, 3, 4, 1, 5, 3, 4, 7, 5, 1, 5, 3 };
+        System.out.println("Most frequent elements: " + Arrays.toString(getMostFrequent(freqArray, 2)));
+        System.out.println();
+        System.out.println("Most frequent elements: " + Arrays.toString(getMostFrequent(freqArray2, 2)));*/
 
     }
 
@@ -127,10 +142,14 @@ public class Lesson3 {
 
             if (found) { break; } //finish. We found it
 
-            if (Arrays.asList(checked).contains(arr[i])) {
-                continue; //skip element if already checked same value
-            } else {
-                checked[i] = arr[i]; //otherwise, add value to the collection
+            //skip element if already checked same value
+            for (var num :
+                    checked) {
+                if (num == arr[i]) {
+                    continue;
+                } else {
+                    checked[i] = arr[i]; //otherwise, add value to the collection
+                }
             }
 
             //go through remaining elements
@@ -174,10 +193,19 @@ public class Lesson3 {
             return arr;
         }
 
-        //split original array in two and initialize both by copying original elements
+        //split original array in two and initialize both by copying original elements manually
         int lSize = arr.length / 2;
-        int[] leftArr = Arrays.copyOfRange(arr, 0, lSize);
-        int[] rightArr = Arrays.copyOfRange(arr, lSize, arr.length);
+        int rSize = arr.length - lSize;
+        int[] leftArr = new int[lSize];
+        int[] rightArr = new int[rSize];
+
+        for (int i = 0; i < lSize; i++) {
+            leftArr[i] = arr[i];
+        }
+
+        for (int i = 0; i < rSize; i++) {
+            rightArr[i] = arr[lSize + i];
+        }
 
         //recursive call until array size is >= 2
         myMergeSort(leftArr);
@@ -217,5 +245,62 @@ public class Lesson3 {
             arr[i] = sumArr[i];
         }
         return arr;
+    }
+
+    //3.7
+    public static int[] getMostFrequent (int[] arr, int k) {
+
+        //variable to store results
+        int[] res = new int[k];
+
+        //variable to store number of occurrences
+        int[] counts = new int[arr.length];
+
+        //collection of already checked values
+        int[] checked = new int[arr.length];
+
+        //take every element of the array
+        for (int j = 0; j < arr.length; j++) {
+
+            //iterate through checked values collection
+            for (int i = 0; i < checked.length; i++) {
+
+                //if not in collection and this is last iteration, means this value is not checked
+                if (checked[i] != arr[j] && i == checked.length - 1) {
+
+                    checked[j] = arr[j]; //add value to collection and
+
+                    //compare it to other elements in a given array and count matches
+                    int count = 0;
+                    for (int m = 0; m < arr.length; m++) {
+
+                        if (m != j && arr[m] == arr[j]) {
+                            count++;
+                        }
+                    }
+                    counts[j] = count; //write matches count to array
+                } else if (checked[i] == arr[j]) {
+                    break; //if already checked skip it
+                }
+            }
+        }
+
+        //print input array, and it's elements counts for user reference only
+        System.out.println("Original array: " + Arrays.toString(arr));
+        System.out.println("Element counts: " + Arrays.toString(counts));
+
+        //now find maximum of 'counts' array elements. And do it k times
+        int n = 0;
+        for (int i = 0; i < k; i++) {
+            int max = 0;
+            for (int j = n; j < counts.length; j++) {
+                if (counts[j] > max) {
+                    max = counts[j];
+                    res[i] = arr[j];
+                    n += j + 1;
+                }
+            }
+        }
+        return res;
     }
 }
