@@ -2,6 +2,8 @@ package zetthard.lesson13;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +35,7 @@ public class Network {
 
         InputStream input = connection.getInputStream();
         String contentAsString = new String(input.readAllBytes(), StandardCharsets.UTF_8);
+        System.out.println(contentAsString);
 
         Gson gson = new Gson();
         ResponseDTO result = gson.fromJson(contentAsString, ResponseDTO.class);
@@ -46,9 +49,11 @@ public class Network {
         }
         System.out.println("Results:");
 
+
         for (String ans :
                 output) {
-            System.out.println(ans + "/n");
+            Document doc = Jsoup.parse(ans);
+            System.out.println(doc.text());
             System.out.println();
         }
     }
