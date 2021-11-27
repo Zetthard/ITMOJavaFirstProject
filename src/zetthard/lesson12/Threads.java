@@ -27,8 +27,8 @@ public class Threads {
 
         //12.4 test
         Thread thread_1 = new MyThread3();
-        thread_1.start();
         Thread thread_2 = new MyThread3();
+        thread_1.start();
         thread_2.start();
 
     }
@@ -70,30 +70,23 @@ class Counter {
 
 //12.4
 class MyThread3 extends Thread {
-    private final Object lock = new Object();
-    private static boolean condition;
+    public final static Object lock = new Object();
+    static volatile int counter = 0;
 
     @Override
     public void run() {
-        for (int i = 0; i < 100; i++) {
-            try {
-                printName();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void printName() throws InterruptedException {
         synchronized (lock) {
-            while (!condition) {
-                condition = false;
-                System.out.println("waiting..");
-                lock.wait();
+            while (counter <= 100) {
+                System.out.println(Thread.currentThread().getName() + " prints " + counter);
+                counter++;
+                lock.notify();
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            condition = true;
-            System.out.println(Thread.currentThread().getName());
-            lock.notify();
+            lock.notifyAll();
         }
     }
 }
