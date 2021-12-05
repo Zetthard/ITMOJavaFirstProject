@@ -56,18 +56,6 @@ class MyThread2 extends Thread {
     }
 }
 
-class Counter {
-    int count = 0;
-
-    public void increment() {
-        count++;
-    }
-
-    public int getCount() {
-        return count;
-    }
-}
-
 //12.4
 class MyThread3 extends Thread {
     public final static Object lock = new Object();
@@ -76,7 +64,7 @@ class MyThread3 extends Thread {
     @Override
     public void run() {
         synchronized (lock) {
-            while (counter <= 100) {
+            while (counter <= 100000) {
                 System.out.println(Thread.currentThread().getName() + " prints " + counter);
                 counter++;
                 lock.notify();
